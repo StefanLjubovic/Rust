@@ -42,7 +42,6 @@ struct Maze{
 
 #[derive(Debug,Clone)]
 struct Player {
-    position: Position,
     key: bool
 }
 
@@ -83,29 +82,32 @@ impl Maze {
     
             let doors=  splited.next().unwrap().to_owned();
             for (index,bit) in bits.enumerate() {
-                if bit==1{
+                if bit==1 {
                     if index ==0{
-                        if(col !=0){
+                        if col !=0 {
                             let new_position = Position::new(row,col-1);
                             cell.add_position(new_position);
+                            cell.doors.push(doors.chars().nth(index).unwrap() == '1')
                         }
                     }else if index==1{
-                        if(col != 8){
+                        if col != 8 {
                             let new_position = Position::new(row,col+1);
                             cell.add_position(new_position);
+                            cell.doors.push(doors.chars().nth(index).unwrap() == '1')
                         }
                     }else if index==2{
-                        if(row != -0){
+                        if row != -0 {
                             let new_position = Position::new(row-1,col);
                             cell.add_position(new_position);
+                            cell.doors.push(doors.chars().nth(index).unwrap() == '1')
                         }
                     }else{
-                        if(row !=5){
+                        if row !=5 {
                             let new_position = Position::new(row+1,col);
                         cell.add_position(new_position);
+                        cell.doors.push(doors.chars().nth(index).unwrap() == '1')
                         }
                     }
-                    cell.doors.push(doors.chars().nth(index).unwrap() == '1')
                     
                 }
             }
@@ -126,10 +128,6 @@ impl Position{
     fn new(row: i8,col:i8) -> Self{
         Self { row: row, col: col }
     }
-
-    fn print(&self){
-        println!("({}, {})", self.row + 1, self.col + 1);
-    }
 }
 
 impl Cell {
@@ -140,46 +138,13 @@ impl Cell {
     fn add_position(&mut self,elem: Position){
         self.next_positions.push(elem);
     }
-
-    fn get_positions_size(&mut self) ->usize{
-        self.next_positions.len()
-    }
 }
 
 impl Player {
-    fn new(row: i8, col: i8) -> Self {
+    fn new() -> Self {
         Player {
-            position: Position { row, col },
             key: false
         }
-    }
-
-    fn find_exit(&mut self, maze: &Maze) -> (Option<Position>, Vec<Position>) {
-        let mut queue = VecDeque::new();
-        let mut visited = HashSet::new();
-        queue.push_back(self.position);
-        visited.insert(self.position);
-        let mut path = vec![self.position.clone()];
-        
-        while let Some(position) = queue.pop_front() {
-            let cell = &maze.positions[position.row as usize][position.col as usize];
-            if cell.exit {
-                return (Some(position), path);
-            }
-            if cell.key {
-                self.key = true;
-            }
-            for (i, next_position) in cell.next_positions.iter().enumerate() {
-                if !visited.contains(next_position) {
-                    if !cell.doors[i] || self.key {
-                        visited.insert(next_position.clone());
-                        path.push(next_position.clone());
-                        queue.push_back(next_position.clone());
-                    }
-                }
-            }
-        }
-        (None, path)
     }
 }
 
@@ -200,38 +165,63 @@ fn print_movement(movement: &Vec<Position>) {
     }
 }
 
-fn filter_path(path: &Vec<Position>) -> Vec<Position> {
-    let mut new_path = vec![path[0].clone()];
+fn find_exit(maze: &Maze) -> (Option<Position>, Vec<Position>) {
+    let mut visited: Vec<Vec<bool>> = vec![vec![false; 9]; 9];
+    let mut path: Vec<Position> = vec![];
 
-    for i in 0..path.len() - 1 {
-        let current = &path[i];
-        let next = &path[i + 1];
-        if is_neighbor(current, next) {
-            new_path.push(next.clone());
+    fn backtrack(current: &Position, maze: &Maze, visited: &mut Vec<Vec<bool>>, path: &mut Vec<Position>,key: &mut bool) -> Option<Position> {
+        // println!("{:#?} {}",current,*key);
+        if visited[current.row as usize][current.col as usize] && !(*key){
+            return None;
         }
+        visited[current.row as usize][current.col as usize] = true;
+        path.push(*current);
+
+        let current_cell = &maze.positions[current.row as usize][current.col as usize];
+        if current_cell.key{
+            *key = true;
+        }
+        if current_cell.exit {
+            return Some(*current);
+        }
+
+        for (next_position, &door) in current_cell.next_positions.iter().zip(current_cell.doors.iter()) {
+            if door && !*key {
+                continue;
+            } else if door && *key{
+                if let Some(result) = backtrack(next_position, maze, visited, path,&mut false) {
+                    return Some(result);
+                }
+            }else if !door{
+                if let Some(result) = backtrack(next_position, maze, visited, path,key) {
+                    return Some(result);
+                }
+            }
+        }
+        path.pop();
+        None
     }
 
-    new_path
+
+    if let Some(result) = backtrack(&Position { row: 0 as i8, col: 0 as i8 }, maze, &mut visited, &mut path,&mut false) {
+        return (Some(result), path);
+    }
+
+    (None, path)
 }
 
-fn is_neighbor(current: &Position, next: &Position) -> bool {
-    (current.row == next.row && (current.col == next.col - 1 || current.col == next.col + 1)) ||
-    (current.col == next.col && (current.row == next.row - 1 || current.row == next.row + 1))
-}
 
 fn main() {
     let mut maze= Maze::new();
     maze.fill_maze();
     println!("{:#?}",maze);
-    let mut player =Player::new(0,0);
-    let resp=player.find_exit(&maze);
-    let vec = resp.1;
-    let final_position = resp.0.unwrap();
-    println!("{:#?}",final_position);
+    let exit =find_exit(&maze);
+    print_movement(&exit.1);
+    println!("{:#?}",exit.0);
     // let filtered = filter_path(&vec);
     // for position in vec{
     //     position.print();
     // }
     // print_movement(&shortest);
-    print_movement(&vec);
+    // print_movement(&vec);
 }
