@@ -3,6 +3,8 @@ use std::fs::File;
 use std::fs;
 use std::hash::{Hash, Hasher};
 use std::io::{BufRead, BufReader};
+use std::sync::mpsc::channel;
+use std::thread;
 
 #[derive(Debug,Clone)]
 struct Cell{
@@ -170,8 +172,8 @@ fn find_exit(maze: &Maze) -> (Option<Position>, Vec<Position>) {
     let mut path: Vec<Position> = vec![];
 
     fn backtrack(current: &Position, maze: &Maze, visited: &mut Vec<Vec<bool>>, path: &mut Vec<Position>,key: &mut bool) -> Option<Position> {
-        // println!("{:#?} {}",current,*key);
-        if visited[current.row as usize][current.col as usize] && !(*key){
+        println!("{:#?} {}",current,*key);
+        if visited[current.row as usize][current.col as usize]{
             return None;
         }
         visited[current.row as usize][current.col as usize] = true;
@@ -198,7 +200,9 @@ fn find_exit(maze: &Maze) -> (Option<Position>, Vec<Position>) {
                 }
             }
         }
-        path.pop();
+        if !current_cell.key{
+            path.pop();
+        }
         None
     }
 
