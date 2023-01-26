@@ -3,8 +3,9 @@ use std::fs::File;
 use std::fs;
 use std::hash::{Hash, Hasher};
 use std::io::{BufRead, BufReader};
-use std::sync::mpsc::channel;
+use std::sync::{Arc, Mutex};
 use std::thread;
+use std::sync::mpsc;
 
 #[derive(Debug,Clone)]
 struct Cell{
@@ -168,51 +169,52 @@ fn print_movement(movement: &Vec<Position>) {
 }
 
 fn find_exit(maze: &Maze) -> (Option<Position>, Vec<Position>) {
-    let mut visited: Vec<Vec<bool>> = vec![vec![false; 9]; 9];
-    let mut path: Vec<Position> = vec![];
+    let (tx, rx) = mpsc::channel();
+    let maze_clone = maze.clone();
+    thread::spawn(move || {
+        let mut visited: Vec<Vec<bool>> = vec![vec![false; 9]; 9];
+        let mut path: Vec<Position> = vec![];
+        let result = backtrack(&Position { row: 0 as i8, col: 0 as i8 }, &maze_clone, &mut visited, &mut path, &tx, &mut false);
+        tx.send((result, path)).unwrap();
+    });
+    rx.recv().unwrap()
+}
 
-    fn backtrack(current: &Position, maze: &Maze, visited: &mut Vec<Vec<bool>>, path: &mut Vec<Position>,key: &mut bool) -> Option<Position> {
-        println!("{:#?} {}",current,*key);
-        if visited[current.row as usize][current.col as usize]{
-            return None;
-        }
-        visited[current.row as usize][current.col as usize] = true;
-        path.push(*current);
+fn backtrack(current: &Position, maze: &Maze, visited: &mut Vec<Vec<bool>>, path: &mut Vec<Position>, tx: &std::sync::mpsc::Sender<(Option<Position>, Vec<Position>)>,key: &mut bool) -> Option<Position> {
+    println!("{:#?} {}",current,*key);
+    if visited[current.row as usize][current.col as usize]{
+        return None;
+    }
+    visited[current.row as usize][current.col as usize] = true;
+    path.push(*current);
 
-        let current_cell = &maze.positions[current.row as usize][current.col as usize];
-        if current_cell.key{
-            *key = true;
-        }
-        if current_cell.exit {
-            return Some(*current);
-        }
+    let current_cell = &maze.positions[current.row as usize][current.col as usize];
+    if current_cell.key{
+        *key = true;
+    }
+    if current_cell.exit {
+        return Some(*current);
+    }
 
-        for (next_position, &door) in current_cell.next_positions.iter().zip(current_cell.doors.iter()) {
-            if door && !*key {
-                continue;
-            } else if door && *key{
-                if let Some(result) = backtrack(next_position, maze, visited, path,&mut false) {
-                    return Some(result);
-                }
-            }else if !door{
-                if let Some(result) = backtrack(next_position, maze, visited, path,key) {
-                    return Some(result);
-                }
+    for (next_position, &door) in current_cell.next_positions.iter().zip(current_cell.doors.iter()) {
+        if door && !*key {
+            continue;
+        } else if door && *key{
+            if let Some(result) = backtrack(next_position, maze, visited, path,tx,&mut false) {
+                return Some(result);
+            }
+        }else if !door{
+            if let Some(result) = backtrack(next_position, maze, visited, path,tx,key) {
+                return Some(result);
             }
         }
-        if !current_cell.key{
-            path.pop();
-        }
-        None
     }
-
-
-    if let Some(result) = backtrack(&Position { row: 0 as i8, col: 0 as i8 }, maze, &mut visited, &mut path,&mut false) {
-        return (Some(result), path);
+    if !current_cell.key{
+        path.pop();
     }
-
-    (None, path)
+    None
 }
+
 
 
 fn main() {
@@ -221,7 +223,7 @@ fn main() {
     println!("{:#?}",maze);
     let exit =find_exit(&maze);
     print_movement(&exit.1);
-    println!("{:#?}",exit.0);
+    println!("{:#?}",exit.0.unwrap());
     // let filtered = filter_path(&vec);
     // for position in vec{
     //     position.print();
