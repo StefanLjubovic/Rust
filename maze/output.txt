@@ -1,0 +1,1176 @@
+Maze {
+    positions: [
+        [
+            Cell {
+                position: Position {
+                    row: 0,
+                    col: 0,
+                },
+                key: false,
+                next_positions: [
+                    Position {
+                        row: 0,
+                        col: 1,
+                    },
+                    Position {
+                        row: 1,
+                        col: 0,
+                    },
+                ],
+                doors: [
+                    true,
+                    false,
+                ],
+                exit: false,
+            },
+            Cell {
+                position: Position {
+                    row: 0,
+                    col: 1,
+                },
+                key: false,
+                next_positions: [
+                    Position {
+                        row: 0,
+                        col: 0,
+                    },
+                    Position {
+                        row: 0,
+                        col: 2,
+                    },
+                ],
+                doors: [
+                    false,
+                    false,
+                ],
+                exit: false,
+            },
+            Cell {
+                position: Position {
+                    row: 0,
+                    col: 2,
+                },
+                key: true,
+                next_positions: [
+                    Position {
+                        row: 0,
+                        col: 1,
+                    },
+                    Position {
+                        row: 0,
+                        col: 3,
+                    },
+                    Position {
+                        row: 1,
+                        col: 2,
+                    },
+                ],
+                doors: [
+                    false,
+                    false,
+                    false,
+                ],
+                exit: false,
+            },
+            Cell {
+                position: Position {
+                    row: 0,
+                    col: 3,
+                },
+                key: false,
+                next_positions: [
+                    Position {
+                        row: 0,
+                        col: 2,
+                    },
+                    Position {
+                        row: 0,
+                        col: 4,
+                    },
+                ],
+                doors: [
+                    false,
+                    false,
+                ],
+                exit: false,
+            },
+            Cell {
+                position: Position {
+                    row: 0,
+                    col: 4,
+                },
+                key: false,
+                next_positions: [
+                    Position {
+                        row: 0,
+                        col: 3,
+                    },
+                    Position {
+                        row: 0,
+                        col: 5,
+                    },
+                    Position {
+                        row: 1,
+                        col: 4,
+                    },
+                ],
+                doors: [
+                    false,
+                    false,
+                    true,
+                ],
+                exit: false,
+            },
+            Cell {
+                position: Position {
+                    row: 0,
+                    col: 5,
+                },
+                key: false,
+                next_positions: [
+                    Position {
+                        row: 0,
+                        col: 4,
+                    },
+                    Position {
+                        row: 0,
+                        col: 6,
+                    },
+                ],
+                doors: [
+                    false,
+                    false,
+                ],
+                exit: false,
+            },
+            Cell {
+                position: Position {
+                    row: 0,
+                    col: 6,
+                },
+                key: false,
+                next_positions: [
+                    Position {
+                        row: 0,
+                        col: 7,
+                    },
+                    Position {
+                        row: 1,
+                        col: 6,
+                    },
+                ],
+                doors: [
+                    false,
+                    false,
+                ],
+                exit: false,
+            },
+            Cell {
+                position: Position {
+                    row: 0,
+                    col: 7,
+                },
+                key: false,
+                next_positions: [
+                    Position {
+                        row: 0,
+                        col: 6,
+                    },
+                    Position {
+                        row: 0,
+                        col: 8,
+                    },
+                ],
+                doors: [
+                    false,
+                    false,
+                ],
+                exit: false,
+            },
+            Cell {
+                position: Position {
+                    row: 0,
+                    col: 8,
+                },
+                key: false,
+                next_positions: [
+                    Position {
+                        row: 0,
+                        col: 7,
+                    },
+                ],
+                doors: [
+                    false,
+                ],
+                exit: true,
+            },
+        ],
+        [
+            Cell {
+                position: Position {
+                    row: 1,
+                    col: 0,
+                },
+                key: false,
+                next_positions: [
+                    Position {
+                        row: 1,
+                        col: 1,
+                    },
+                    Position {
+                        row: 0,
+                        col: 0,
+                    },
+                ],
+                doors: [
+                    false,
+                    false,
+                ],
+                exit: false,
+            },
+            Cell {
+                position: Position {
+                    row: 1,
+                    col: 1,
+                },
+                key: false,
+                next_positions: [
+                    Position {
+                        row: 1,
+                        col: 0,
+                    },
+                    Position {
+                        row: 1,
+                        col: 2,
+                    },
+                    Position {
+                        row: 2,
+                        col: 1,
+                    },
+                ],
+                doors: [
+                    false,
+                    false,
+                    false,
+                ],
+                exit: false,
+            },
+            Cell {
+                position: Position {
+                    row: 1,
+                    col: 2,
+                },
+                key: false,
+                next_positions: [
+                    Position {
+                        row: 1,
+                        col: 1,
+                    },
+                    Position {
+                        row: 0,
+                        col: 2,
+                    },
+                    Position {
+                        row: 2,
+                        col: 2,
+                    },
+                ],
+                doors: [
+                    false,
+                    false,
+                    false,
+                ],
+                exit: false,
+            },
+            Cell {
+                position: Position {
+                    row: 1,
+                    col: 3,
+                },
+                key: false,
+                next_positions: [],
+                doors: [],
+                exit: false,
+            },
+            Cell {
+                position: Position {
+                    row: 1,
+                    col: 4,
+                },
+                key: false,
+                next_positions: [
+                    Position {
+                        row: 1,
+                        col: 5,
+                    },
+                    Position {
+                        row: 0,
+                        col: 4,
+                    },
+                    Position {
+                        row: 2,
+                        col: 4,
+                    },
+                ],
+                doors: [
+                    false,
+                    false,
+                    true,
+                ],
+                exit: false,
+            },
+            Cell {
+                position: Position {
+                    row: 1,
+                    col: 5,
+                },
+                key: false,
+                next_positions: [
+                    Position {
+                        row: 1,
+                        col: 4,
+                    },
+                    Position {
+                        row: 2,
+                        col: 5,
+                    },
+                ],
+                doors: [
+                    false,
+                    false,
+                ],
+                exit: false,
+            },
+            Cell {
+                position: Position {
+                    row: 1,
+                    col: 6,
+                },
+                key: true,
+                next_positions: [
+                    Position {
+                        row: 0,
+                        col: 6,
+                    },
+                    Position {
+                        row: 2,
+                        col: 6,
+                    },
+                ],
+                doors: [
+                    false,
+                    false,
+                ],
+                exit: false,
+            },
+            Cell {
+                position: Position {
+                    row: 1,
+                    col: 7,
+                },
+                key: false,
+                next_positions: [
+                    Position {
+                        row: 1,
+                        col: 8,
+                    },
+                    Position {
+                        row: 2,
+                        col: 7,
+                    },
+                ],
+                doors: [
+                    false,
+                    false,
+                ],
+                exit: false,
+            },
+            Cell {
+                position: Position {
+                    row: 1,
+                    col: 8,
+                },
+                key: false,
+                next_positions: [
+                    Position {
+                        row: 1,
+                        col: 7,
+                    },
+                    Position {
+                        row: 2,
+                        col: 8,
+                    },
+                ],
+                doors: [
+                    true,
+                    false,
+                ],
+                exit: false,
+            },
+        ],
+        [
+            Cell {
+                position: Position {
+                    row: 2,
+                    col: 0,
+                },
+                key: false,
+                next_positions: [
+                    Position {
+                        row: 2,
+                        col: 1,
+                    },
+                    Position {
+                        row: 3,
+                        col: 0,
+                    },
+                ],
+                doors: [
+                    false,
+                    false,
+                ],
+                exit: false,
+            },
+            Cell {
+                position: Position {
+                    row: 2,
+                    col: 1,
+                },
+                key: true,
+                next_positions: [
+                    Position {
+                        row: 2,
+                        col: 0,
+                    },
+                    Position {
+                        row: 1,
+                        col: 1,
+                    },
+                ],
+                doors: [
+                    false,
+                    false,
+                ],
+                exit: false,
+            },
+            Cell {
+                position: Position {
+                    row: 2,
+                    col: 2,
+                },
+                key: false,
+                next_positions: [
+                    Position {
+                        row: 2,
+                        col: 3,
+                    },
+                    Position {
+                        row: 1,
+                        col: 2,
+                    },
+                    Position {
+                        row: 3,
+                        col: 2,
+                    },
+                ],
+                doors: [
+                    false,
+                    false,
+                    false,
+                ],
+                exit: false,
+            },
+            Cell {
+                position: Position {
+                    row: 2,
+                    col: 3,
+                },
+                key: true,
+                next_positions: [
+                    Position {
+                        row: 2,
+                        col: 2,
+                    },
+                ],
+                doors: [
+                    false,
+                ],
+                exit: false,
+            },
+            Cell {
+                position: Position {
+                    row: 2,
+                    col: 4,
+                },
+                key: true,
+                next_positions: [
+                    Position {
+                        row: 1,
+                        col: 4,
+                    },
+                    Position {
+                        row: 3,
+                        col: 4,
+                    },
+                ],
+                doors: [
+                    false,
+                    false,
+                ],
+                exit: false,
+            },
+            Cell {
+                position: Position {
+                    row: 2,
+                    col: 5,
+                },
+                key: false,
+                next_positions: [
+                    Position {
+                        row: 1,
+                        col: 5,
+                    },
+                ],
+                doors: [
+                    false,
+                ],
+                exit: false,
+            },
+            Cell {
+                position: Position {
+                    row: 2,
+                    col: 6,
+                },
+                key: false,
+                next_positions: [
+                    Position {
+                        row: 1,
+                        col: 6,
+                    },
+                    Position {
+                        row: 3,
+                        col: 6,
+                    },
+                ],
+                doors: [
+                    false,
+                    false,
+                ],
+                exit: false,
+            },
+            Cell {
+                position: Position {
+                    row: 2,
+                    col: 7,
+                },
+                key: false,
+                next_positions: [
+                    Position {
+                        row: 1,
+                        col: 7,
+                    },
+                    Position {
+                        row: 3,
+                        col: 7,
+                    },
+                ],
+                doors: [
+                    false,
+                    true,
+                ],
+                exit: false,
+            },
+            Cell {
+                position: Position {
+                    row: 2,
+                    col: 8,
+                },
+                key: true,
+                next_positions: [
+                    Position {
+                        row: 1,
+                        col: 8,
+                    },
+                ],
+                doors: [
+                    false,
+                ],
+                exit: false,
+            },
+        ],
+        [
+            Cell {
+                position: Position {
+                    row: 3,
+                    col: 0,
+                },
+                key: false,
+                next_positions: [
+                    Position {
+                        row: 3,
+                        col: 1,
+                    },
+                    Position {
+                        row: 2,
+                        col: 0,
+                    },
+                ],
+                doors: [
+                    false,
+                    false,
+                ],
+                exit: false,
+            },
+            Cell {
+                position: Position {
+                    row: 3,
+                    col: 1,
+                },
+                key: true,
+                next_positions: [
+                    Position {
+                        row: 3,
+                        col: 0,
+                    },
+                ],
+                doors: [
+                    false,
+                ],
+                exit: false,
+            },
+            Cell {
+                position: Position {
+                    row: 3,
+                    col: 2,
+                },
+                key: false,
+                next_positions: [
+                    Position {
+                        row: 2,
+                        col: 2,
+                    },
+                    Position {
+                        row: 4,
+                        col: 2,
+                    },
+                ],
+                doors: [
+                    false,
+                    true,
+                ],
+                exit: false,
+            },
+            Cell {
+                position: Position {
+                    row: 3,
+                    col: 3,
+                },
+                key: false,
+                next_positions: [],
+                doors: [],
+                exit: false,
+            },
+            Cell {
+                position: Position {
+                    row: 3,
+                    col: 4,
+                },
+                key: false,
+                next_positions: [
+                    Position {
+                        row: 3,
+                        col: 5,
+                    },
+                    Position {
+                        row: 2,
+                        col: 4,
+                    },
+                ],
+                doors: [
+                    true,
+                    false,
+                ],
+                exit: false,
+            },
+            Cell {
+                position: Position {
+                    row: 3,
+                    col: 5,
+                },
+                key: true,
+                next_positions: [
+                    Position {
+                        row: 3,
+                        col: 4,
+                    },
+                    Position {
+                        row: 4,
+                        col: 5,
+                    },
+                ],
+                doors: [
+                    false,
+                    false,
+                ],
+                exit: false,
+            },
+            Cell {
+                position: Position {
+                    row: 3,
+                    col: 6,
+                },
+                key: false,
+                next_positions: [
+                    Position {
+                        row: 3,
+                        col: 7,
+                    },
+                    Position {
+                        row: 2,
+                        col: 6,
+                    },
+                    Position {
+                        row: 4,
+                        col: 6,
+                    },
+                ],
+                doors: [
+                    false,
+                    false,
+                    false,
+                ],
+                exit: false,
+            },
+            Cell {
+                position: Position {
+                    row: 3,
+                    col: 7,
+                },
+                key: false,
+                next_positions: [
+                    Position {
+                        row: 3,
+                        col: 6,
+                    },
+                    Position {
+                        row: 2,
+                        col: 7,
+                    },
+                    Position {
+                        row: 4,
+                        col: 7,
+                    },
+                ],
+                doors: [
+                    false,
+                    false,
+                    false,
+                ],
+                exit: false,
+            },
+            Cell {
+                position: Position {
+                    row: 3,
+                    col: 8,
+                },
+                key: false,
+                next_positions: [],
+                doors: [],
+                exit: false,
+            },
+        ],
+        [
+            Cell {
+                position: Position {
+                    row: 4,
+                    col: 0,
+                },
+                key: false,
+                next_positions: [
+                    Position {
+                        row: 4,
+                        col: 1,
+                    },
+                    Position {
+                        row: 5,
+                        col: 0,
+                    },
+                ],
+                doors: [
+                    false,
+                    false,
+                ],
+                exit: false,
+            },
+            Cell {
+                position: Position {
+                    row: 4,
+                    col: 1,
+                },
+                key: false,
+                next_positions: [
+                    Position {
+                        row: 4,
+                        col: 0,
+                    },
+                    Position {
+                        row: 4,
+                        col: 2,
+                    },
+                ],
+                doors: [
+                    false,
+                    false,
+                ],
+                exit: false,
+            },
+            Cell {
+                position: Position {
+                    row: 4,
+                    col: 2,
+                },
+                key: false,
+                next_positions: [
+                    Position {
+                        row: 4,
+                        col: 1,
+                    },
+                    Position {
+                        row: 3,
+                        col: 2,
+                    },
+                    Position {
+                        row: 5,
+                        col: 2,
+                    },
+                ],
+                doors: [
+                    false,
+                    false,
+                    false,
+                ],
+                exit: false,
+            },
+            Cell {
+                position: Position {
+                    row: 4,
+                    col: 3,
+                },
+                key: false,
+                next_positions: [],
+                doors: [],
+                exit: false,
+            },
+            Cell {
+                position: Position {
+                    row: 4,
+                    col: 4,
+                },
+                key: false,
+                next_positions: [
+                    Position {
+                        row: 4,
+                        col: 5,
+                    },
+                    Position {
+                        row: 5,
+                        col: 4,
+                    },
+                ],
+                doors: [
+                    false,
+                    false,
+                ],
+                exit: false,
+            },
+            Cell {
+                position: Position {
+                    row: 4,
+                    col: 5,
+                },
+                key: false,
+                next_positions: [
+                    Position {
+                        row: 4,
+                        col: 4,
+                    },
+                    Position {
+                        row: 3,
+                        col: 5,
+                    },
+                ],
+                doors: [
+                    false,
+                    false,
+                ],
+                exit: false,
+            },
+            Cell {
+                position: Position {
+                    row: 4,
+                    col: 6,
+                },
+                key: true,
+                next_positions: [
+                    Position {
+                        row: 4,
+                        col: 7,
+                    },
+                    Position {
+                        row: 3,
+                        col: 6,
+                    },
+                ],
+                doors: [
+                    false,
+                    false,
+                ],
+                exit: false,
+            },
+            Cell {
+                position: Position {
+                    row: 4,
+                    col: 7,
+                },
+                key: false,
+                next_positions: [
+                    Position {
+                        row: 4,
+                        col: 6,
+                    },
+                    Position {
+                        row: 5,
+                        col: 7,
+                    },
+                ],
+                doors: [
+                    false,
+                    false,
+                ],
+                exit: false,
+            },
+            Cell {
+                position: Position {
+                    row: 4,
+                    col: 8,
+                },
+                key: false,
+                next_positions: [
+                    Position {
+                        row: 5,
+                        col: 8,
+                    },
+                ],
+                doors: [
+                    false,
+                ],
+                exit: false,
+            },
+        ],
+        [
+            Cell {
+                position: Position {
+                    row: 5,
+                    col: 0,
+                },
+                key: false,
+                next_positions: [
+                    Position {
+                        row: 5,
+                        col: 1,
+                    },
+                    Position {
+                        row: 4,
+                        col: 0,
+                    },
+                ],
+                doors: [
+                    false,
+                    false,
+                ],
+                exit: false,
+            },
+            Cell {
+                position: Position {
+                    row: 5,
+                    col: 1,
+                },
+                key: false,
+                next_positions: [
+                    Position {
+                        row: 5,
+                        col: 0,
+                    },
+                    Position {
+                        row: 5,
+                        col: 2,
+                    },
+                ],
+                doors: [
+                    false,
+                    false,
+                ],
+                exit: false,
+            },
+            Cell {
+                position: Position {
+                    row: 5,
+                    col: 2,
+                },
+                key: false,
+                next_positions: [
+                    Position {
+                        row: 5,
+                        col: 1,
+                    },
+                    Position {
+                        row: 5,
+                        col: 3,
+                    },
+                    Position {
+                        row: 4,
+                        col: 2,
+                    },
+                ],
+                doors: [
+                    false,
+                    false,
+                    false,
+                ],
+                exit: true,
+            },
+            Cell {
+                position: Position {
+                    row: 5,
+                    col: 3,
+                },
+                key: false,
+                next_positions: [
+                    Position {
+                        row: 5,
+                        col: 2,
+                    },
+                ],
+                doors: [
+                    false,
+                ],
+                exit: false,
+            },
+            Cell {
+                position: Position {
+                    row: 5,
+                    col: 4,
+                },
+                key: true,
+                next_positions: [
+                    Position {
+                        row: 5,
+                        col: 5,
+                    },
+                    Position {
+                        row: 4,
+                        col: 4,
+                    },
+                ],
+                doors: [
+                    true,
+                    false,
+                ],
+                exit: false,
+            },
+            Cell {
+                position: Position {
+                    row: 5,
+                    col: 5,
+                },
+                key: false,
+                next_positions: [
+                    Position {
+                        row: 5,
+                        col: 4,
+                    },
+                    Position {
+                        row: 5,
+                        col: 6,
+                    },
+                ],
+                doors: [
+                    false,
+                    false,
+                ],
+                exit: false,
+            },
+            Cell {
+                position: Position {
+                    row: 5,
+                    col: 6,
+                },
+                key: false,
+                next_positions: [
+                    Position {
+                        row: 5,
+                        col: 5,
+                    },
+                    Position {
+                        row: 5,
+                        col: 7,
+                    },
+                ],
+                doors: [
+                    false,
+                    false,
+                ],
+                exit: false,
+            },
+            Cell {
+                position: Position {
+                    row: 5,
+                    col: 7,
+                },
+                key: false,
+                next_positions: [
+                    Position {
+                        row: 5,
+                        col: 6,
+                    },
+                    Position {
+                        row: 5,
+                        col: 8,
+                    },
+                    Position {
+                        row: 4,
+                        col: 7,
+                    },
+                ],
+                doors: [
+                    false,
+                    false,
+                    false,
+                ],
+                exit: false,
+            },
+            Cell {
+                position: Position {
+                    row: 5,
+                    col: 8,
+                },
+                key: true,
+                next_positions: [
+                    Position {
+                        row: 5,
+                        col: 7,
+                    },
+                    Position {
+                        row: 4,
+                        col: 8,
+                    },
+                ],
+                doors: [
+                    false,
+                    false,
+                ],
+                exit: false,
+            },
+        ],
+    ],
+}

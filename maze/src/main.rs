@@ -1,3 +1,4 @@
+use core::panic;
 use std::collections::{VecDeque, HashSet, HashMap};
 use std::fs::File;
 use std::fs;
@@ -6,6 +7,8 @@ use std::io::{BufRead, BufReader};
 use std::sync::{Arc, Mutex};
 use std::thread;
 use std::sync::mpsc;
+use std::io::Write;
+use std::time::Instant;
 
 #[derive(Debug,Clone)]
 struct Cell{
@@ -43,11 +46,6 @@ struct Maze{
 }
 
 
-#[derive(Debug,Clone)]
-struct Player {
-    key: bool
-}
-
 impl Maze {
     fn new() ->Self{
         Maze { positions: Vec::new() }
@@ -63,14 +61,15 @@ impl Maze {
         }
     }
 
-    fn fill_maze(&mut self){
-        let file = File::open("./src/data/positions.txt").expect("Wrong path to a file!");
+    fn fill_maze(&mut self) -> Result<(), std::io::Error>{
+        let file = File::open("./src/data/positions.txt")?;
         let reader = BufReader::new(file);
     
         let mut row:i8 =0;
         let mut col:i8 =0;
         self.add_empty_row();
-        for line in reader.lines() {
+        for line in reader.lines(){
+            let line= line?;
             if col==9{
                 col=0;
                 row+=1;
@@ -78,7 +77,6 @@ impl Maze {
             }
             let position= Position::new(row,col);
             let mut cell = Cell::new(position);
-            let line = line.unwrap();
             let mut splited = line.split(" ");
             let positions=  splited.next().unwrap().to_owned();
             let bits = positions.chars().map(|c| c.to_digit(10).unwrap());
@@ -123,6 +121,7 @@ impl Maze {
     
             col +=1;
         }
+        Ok(())
     }
     
 }
@@ -142,15 +141,6 @@ impl Cell {
         self.next_positions.push(elem);
     }
 }
-
-impl Player {
-    fn new() -> Self {
-        Player {
-            key: false
-        }
-    }
-}
-
 
 fn print_movement(movement: &Vec<Position>) {
     let max_row = 5;
@@ -181,7 +171,7 @@ fn find_exit(maze: &Maze) -> (Option<Position>, Vec<Position>) {
 }
 
 fn backtrack(current: &Position, maze: &Maze, visited: &mut Vec<Vec<bool>>, path: &mut Vec<Position>, tx: &std::sync::mpsc::Sender<(Option<Position>, Vec<Position>)>,key: &mut bool) -> Option<Position> {
-    println!("{:#?} {}",current,*key);
+    // println!("{:#?} {}",current,*key);
     if visited[current.row as usize][current.col as usize]{
         return None;
     }
@@ -216,14 +206,73 @@ fn backtrack(current: &Position, maze: &Maze, visited: &mut Vec<Vec<bool>>, path
 }
 
 
+fn find_exit_sequentiall(maze: &Maze) -> Vec<Vec<Position>>  {
+    let mut visited: Vec<Vec<bool>> = vec![vec![false; 9]; 9];
+    let mut result: Vec<Vec<Position>> = vec![];
+
+    fn backtrack(current: &Position, maze: &Maze, visited: &mut Vec<Vec<bool>>, path: &mut Vec<Position>,key: &mut bool, result: &mut Vec<Vec<Position>>) {
+         println!("{:#?}",*current);
+        if visited[current.row as usize][current.col as usize]{
+            return;
+        }
+        visited[current.row as usize][current.col as usize] = true;
+        path.push(*current);
+    
+        let current_cell = &maze.positions[current.row as usize][current.col as usize];
+        if current_cell.key{
+            *key = true;
+        }
+        if current_cell.exit {
+            result.push(path.clone());
+        }
+    
+        for (next_position, &door) in current_cell.next_positions.iter().zip(current_cell.doors.iter()) {
+            if door && !*key {
+                continue;
+            } else if door && *key{
+                backtrack(next_position, maze, visited, path,&mut false,result);
+            }else if !door{
+                backtrack(next_position, maze, visited, path,key,result);
+            }
+        }
+        if !current_cell.key{
+            path.pop();
+        }
+    }
+    
+    let mut path: Vec<Position> = vec![];
+    backtrack(&Position { row: 0 as i8, col: 0 as i8 }, maze, &mut visited, &mut path,&mut false, &mut result);
+    
+    result
+    }
+
+
 
 fn main() {
     let mut maze= Maze::new();
-    maze.fill_maze();
-    println!("{:#?}",maze);
-    let exit =find_exit(&maze);
-    print_movement(&exit.1);
-    println!("{:#?}",exit.0.unwrap());
+    let fill=maze.fill_maze();
+    match fill {
+        Ok(())=>{
+            let mut file = File::create("output.txt").unwrap();
+            let output = format!("{:#?}",maze);
+            file.write_all(output.as_bytes()).unwrap();
+            // println!("{:#?}",maze);
+            let start_time = Instant::now();
+            let exit =find_exit(&maze);
+            let end_time = Instant::now();
+        
+            let duration = end_time.duration_since(start_time);
+            println!("{}",duration.as_micros());
+            print_movement(&exit.1);
+
+            let exits = find_exit_sequentiall(&maze);
+            for ex in exits{
+                print_movement(&ex);
+            }
+        },
+        Err(e) => panic!("{}",e),
+    }
+    // println!("{:#?}",exit.0.unwrap());
     // let filtered = filter_path(&vec);
     // for position in vec{
     //     position.print();
