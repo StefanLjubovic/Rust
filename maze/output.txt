@@ -152,6 +152,10 @@ Maze {
                 next_positions: [
                     Position {
                         row: 0,
+                        col: 5,
+                    },
+                    Position {
+                        row: 0,
                         col: 7,
                     },
                     Position {
@@ -160,6 +164,7 @@ Maze {
                     },
                 ],
                 doors: [
+                    false,
                     false,
                     false,
                 ],
